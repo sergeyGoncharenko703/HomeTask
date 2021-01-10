@@ -8,6 +8,7 @@ public class BasePage {
 
     public WebDriver driver;
     public BasePage(WebDriver driver) {
+
         this.driver = driver;
     }
 
@@ -28,5 +29,4 @@ public class BasePage {
         driver.findElement(errorText);
         return this;
     }
-
 }

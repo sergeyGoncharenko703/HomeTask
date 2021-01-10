@@ -10,7 +10,7 @@ public class CommonActions {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         return driver;
     }
 }

@@ -8,7 +8,7 @@ public class Constants {
     }
 
     public static class Pages {
-        public static final String REGISTRATION  = "?controller=authentication&back=my-account";
+        public static final String AUTHENTICATION  = "?controller=authentication&back=my-account";
         public static final String DRESSES  = "?id_category=8&controller=category";
     }
 }

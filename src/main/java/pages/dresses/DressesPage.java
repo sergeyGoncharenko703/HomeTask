@@ -2,11 +2,7 @@ package pages.dresses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pages.base.BasePage;
-import pages.registration.RegistrationPage;
-
-import java.util.List;
 
 public class DressesPage extends BasePage {
 
@@ -50,31 +46,14 @@ public class DressesPage extends BasePage {
      * 6. Добавить первые два товара в корзину
      * 7. Перейти в корзину
      */
-    public DressesPage addToCart() throws InterruptedException {
+    public DressesPage addToCart() {
         driver.findElements(By.xpath("//a[@class='button ajax_add_to_cart_button btn btn-default']")).get(0).click();
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         driver.findElement(buttonContinueShopping).click();
         driver.findElements(By.xpath("//a[@class='button ajax_add_to_cart_button btn btn-default']")).get(1).click();
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         driver.findElement(buttonProceedToCheckout).click();
         return this;
     }
 
-    /**
-     * 8. Проверить что оба товара в корзине
-     */
-    public DressesPage checkNumberOfItemsInCart() {
-        driver.findElement(By.xpath("//span[@id='summary_products_quantity' and (text())='2 Products']"));
-        return this;
-    }
-
-    /**
-     * 9. Проверить что Total товаров равно Total Products
-     */
-    public DressesPage comparisonOfAmounts() {
-        String totalPrice = driver.findElement(By.xpath("//span[@id='total_price']")).getText();
-        String totalProduct = driver.findElement(By.xpath("//td[@id='total_product']")).getText();
-        System.out.println(totalPrice.equals(totalProduct));
-        return this;
-    }
 }
