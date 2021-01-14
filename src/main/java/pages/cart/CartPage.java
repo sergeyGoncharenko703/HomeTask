@@ -22,26 +22,25 @@ public class CartPage extends BasePage {
     private final By mobilePhoneData = By.xpath("//li[@class='address_phone_mobile']");
     private final By summaryProductsQuantity = By.xpath("//span[@id='summary_products_quantity']");
 
-
-
+    private final By totalProducts = By.xpath("//td[@id='total_product']");
+    private final By totalShipping = By.xpath("//td[@id='total_shipping']");
+    private final By total = By.xpath("//td[@id='total_price_without_tax']");
+    private final By tax = By.xpath("//td[@id='total_tax']");
+    private final By totalPrice = By.xpath("//td[@id='total_price_container']");
 
     private final By submitButton = By.xpath("//button[@type='submit' and @name='processAddress']");
     private final By iAgreeCheckbox = By.xpath("//input[@type='checkbox']");
     private final By submitInShipphing = By.xpath("//button[@type='submit' and @class='button btn btn-default standard-checkout button-medium']");
+    private final By addProductUnit = By.xpath("//i[@class='icon-plus']");
+    private final By deleteCart  = By.xpath("//a[@class='cart_quantity_delete']");
 
-    /**
-     * 8. Проверить что оба товара в корзине
-     */
+    public static final By cartIsEmpty = By.xpath("//*[contains(text(),'Your shopping cart is empty.')]");
+
     public CartPage checkNumberOfItemsInCart(String quantity) {
-
         Assert.assertTrue(driver.findElement(summaryProductsQuantity).getText().contentEquals(quantity));
-        //driver.findElement(By.xpath("//span[@id='summary_products_quantity' and (text())='2 Products']"));
         return this;
     }
 
-    /**
-     * 9. Проверить что Total товаров равно Total Products
-     */
     public CartPage comparisonOfAmounts() {
         String totalPrice = driver.findElement(By.xpath("//span[@id='total_price']")).getText();
         String totalProduct = driver.findElement(By.xpath("//td[@id='total_product']")).getText();
@@ -49,9 +48,6 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    /**
-     * 11. Перейти в Adress, проверить Billing Adress
-     */
     public CartPage proceedToCheckoutClick() {
         driver.findElement(buttonProceedToCheckout1).click();
         return this;
@@ -59,39 +55,52 @@ public class CartPage extends BasePage {
 
     public CartPage checkBillingAdress (String firstnameAndLastname, String company, String addressAndCity,
                                         String postal, String country, String mobilePhone) {
-
         Assert.assertTrue(driver.findElement(firstnameAndLastnameData).getText().contentEquals(firstnameAndLastname));
         Assert.assertTrue(driver.findElement(companyData).getText().contentEquals(company));
         Assert.assertTrue(driver.findElement(addressAndCityData).getText().contentEquals(addressAndCity));
         Assert.assertTrue(driver.findElement(postalData).getText().contentEquals(postal));
         Assert.assertTrue(driver.findElement(countryData).getText().contentEquals(country));
         Assert.assertTrue(driver.findElement(mobilePhoneData).getText().contentEquals(mobilePhone));
-
         return this;
     }
-    /**
-     * 12. Перейти в Shipping
-     */
+
     public CartPage goToShipping() {
         driver.findElement(submitButton).click();
         return this;
     }
-
-    /**
-     * 13. Активировать I agree
-     */
 
     public CartPage iAgreeClick() {
         driver.findElement(iAgreeCheckbox).click();
         return this;
     }
 
-    /**
-     * 14. Перейти на страницу Payment
-     */
     public CartPage goToPayment() {
         driver.findElement(submitInShipphing).click();
         return this;
     }
+
+    public CartPage addProductUnit() throws InterruptedException {
+        driver.findElement(addProductUnit).click();
+        Thread.sleep(1700);
+        return this;
+    }
+
+    public CartPage deleteCart() {
+        driver.findElement(deleteCart).click();
+        return this;
+    }
+
+    public CartPage checkTotal (String totalProductsValue, String totalShippingValue, String totalValue, String taxValue,
+                                String totalPriceValue) {
+
+        Assert.assertTrue(driver.findElement(totalProducts).getText().contentEquals(totalProductsValue));
+        Assert.assertTrue(driver.findElement(totalShipping).getText().contentEquals(totalShippingValue));
+        Assert.assertTrue(driver.findElement(total).getText().contentEquals(totalValue));
+        Assert.assertTrue(driver.findElement(tax).getText().contentEquals(taxValue));
+        Assert.assertTrue(driver.findElement(totalPrice).getText().contentEquals(totalPriceValue));
+        return this;
+    }
+
+
 
 }

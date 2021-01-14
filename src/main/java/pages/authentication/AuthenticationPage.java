@@ -7,6 +7,7 @@ import pages.base.BasePage;
 public class AuthenticationPage extends BasePage {
 
     public AuthenticationPage(WebDriver driver) {
+
         super(driver);
     }
 
@@ -37,19 +38,20 @@ public class AuthenticationPage extends BasePage {
     private final By lastName = By.xpath("//input[@id='lastname']");
     private final By company = By.xpath("//input[@id='company']");
     private final By adress = By.xpath("//input[@name='address1']");
-    private final By adressLine2 = By.xpath("//input[@name='address2']");
+    private final By adress2 = By.xpath("//input[@name='address2']");
     private final By city = By.xpath("//input[@name='city']");
     private final By state = By.xpath("//select[@name='id_state']");
     private final By zip = By.xpath("//input[@name='postcode']");
     private final By country = By.xpath("//select[@name='id_country']");
     private final By additionalInformation = By.xpath("//textarea[@name='other']");
-    private final By phone = By.xpath("//input[@name='phone_mobile']");
+    private final By phone = By.xpath("//input[@name='phone']");
+    private final By phoneMobile = By.xpath("//input[@name='phone_mobile']");
     private final By addressAlias = By.xpath("//input[@name='alias']");
 
     private final By submit = By.xpath("//button[@name='submitAccount']");
 
     //Error Message
-    public static final By errorEmptyField = By.xpath("//*[contains(text(),'There are 2 errors')]");
+    public static final By errorEmptyField = By.xpath("//*[contains(text(),'There are 3 errors')]");
 
     public AuthenticationPage authorization (String login, String password){
         driver.findElement(emailForAuth).sendKeys(login);
@@ -61,7 +63,6 @@ public class AuthenticationPage extends BasePage {
     public AuthenticationPage typeEmailForRegistration(String email) {
         driver.findElement(emailAdress).sendKeys(email);
         driver.findElement(submitCreateAccount).click();
-        //Thread.sleep(3000);
         return this;
     }
 
@@ -85,6 +86,16 @@ public class AuthenticationPage extends BasePage {
         return this;
     }
 
+    public AuthenticationPage selectingDateOfBirth () {
+        driver.findElement(dayOfBirth).click();
+        driver.findElement(By.xpath("//option[@value='21']")).click();
+        driver.findElement(monthOfBirth).click();
+        driver.findElement(By.xpath("//*[contains(text(),'July')]")).click();
+        driver.findElement(yearOfBirth).click();
+        driver.findElement(By.xpath("//option[@value='1997']")).click();
+        return this;
+    }
+
     public AuthenticationPage typeCustomerEmail (String email) {
         driver.findElement(customerEmail).sendKeys(email);
         return this;
@@ -105,8 +116,30 @@ public class AuthenticationPage extends BasePage {
         return this;
     }
 
+    public AuthenticationPage typeCompany (String companyName) {
+        driver.findElement(company).sendKeys(companyName);
+        return this;
+    }
+
     public AuthenticationPage typeAddress (String customerAdress) {
         driver.findElement(adress).sendKeys(customerAdress);
+        return this;
+    }
+
+    public AuthenticationPage typeAddressLine2 (String customerAdressLine2) {
+        driver.findElement(adress2).sendKeys(customerAdressLine2);
+        return this;
+    }
+
+    public AuthenticationPage selectingCountry () {
+        driver.findElement(country).click();
+        driver.findElements(By.xpath("//option[@value='']")).get(4).click();
+        return this;
+    }
+
+    public AuthenticationPage selectingState() {
+        driver.findElement(state).click();
+        driver.findElement(By.xpath("//option[@value='32']")).click();
         return this;
     }
 
@@ -115,8 +148,23 @@ public class AuthenticationPage extends BasePage {
         return this;
     }
 
+    public AuthenticationPage typeZIP (String zipCode) {
+        driver.findElement(zip).sendKeys(zipCode);
+        return this;
+    }
+
     public AuthenticationPage typePhone (String phoneNumber) {
         driver.findElement(phone).sendKeys(phoneNumber);
+        return this;
+    }
+
+    public AuthenticationPage typePhoneMobile (String mobilePhoneNumber) {
+        driver.findElement(phoneMobile).sendKeys(mobilePhoneNumber);
+        return this;
+    }
+
+    public AuthenticationPage typeAddInfo (String addInfo) {
+        driver.findElement(additionalInformation).sendKeys(addInfo);
         return this;
     }
 
